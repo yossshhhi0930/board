@@ -1,7 +1,9 @@
 package com.example.board.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import com.example.board.repository.PostRepository;
 import com.example.board.repository.Post;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import java.util.Optional;
 import org.springframework.validation.annotation.Validated;
 import com.example.board.validation.GroupOrder;
+
 /**
  * 掲示板のフロントコントローラー.
  */
@@ -20,6 +23,7 @@ public class BoardController {
 	/** 投稿の一覧 */
 	  @Autowired
 	  private PostRepository repository;
+
     /**
     * 一覧を表示する。
     *
@@ -98,4 +102,5 @@ public class BoardController {
          model.addAttribute("path", "create");
          return "layout";
      }
+
 }

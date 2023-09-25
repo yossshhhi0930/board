@@ -3,10 +3,12 @@
 	 <li th:each="error : ${#fields.detailedErrors()}" th:text="${error.message}" class="err" />
   <input type="hidden" th:field="*{id}" />
   </ul>
+
   <section id="form">
     <dl class="clearfix">
       <dt><label th:for="${#ids.next('author')}" class="required">投稿者</label></dt>
       <dd>
+
 	  <div><input type="text" th:field="*{author}" />
          <span th:if="${#fields.hasErrors('author')}" th:errors="*{author}" th:errorclass="err" /></div>
       </dd>
@@ -19,6 +21,7 @@
       <dd>
       <div><textarea th:field="*{body}"></textarea>
          <span th:if="${#fields.hasErrors('body')}" th:errors="*{body}" th:errorclass="err" /></div>
+
       </dd>
     </dl>
     <button type="submit">送信</button>
@@ -26,7 +29,9 @@
 </form>
 <section id="posts">
   <ul>
+
       <li th:each="post : ${list}">
+
       <article class="post">
         <ul>
           <li>
