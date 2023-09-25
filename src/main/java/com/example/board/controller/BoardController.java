@@ -11,7 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import java.util.Optional;
 import org.springframework.validation.annotation.Validated;
-
+import com.example.board.validation.GroupOrder;
 /**
  * 掲示板のフロントコントローラー.
  */
@@ -41,13 +41,13 @@ public class BoardController {
       * @return 一覧を設定したモデル
       */
      private Model setList(Model model) {
-    	 Iterable<Post> list = repository.findAll();
+    	 Iterable<Post> list = repository.findByDeletedFalseOrderByUpdatedDateDesc();
     	 model.addAttribute("list", list);
     	 return model;
      }
      @RequestMapping(value = "/create", method = RequestMethod.POST)
-     public String create(@ModelAttribute("form") @Validated Post form, BindingResult result, Model model) {
-         if (!result.hasErrors()) {
+     public String create(@ModelAttribute("form") @Validated(GroupOrder.class) Post form, BindingResult result, Model model) {
+     	if (!result.hasErrors()) {
              repository.saveAndFlush(PostFactory.createPost(form));
              model.addAttribute("form", PostFactory.newPost());
          }
@@ -79,7 +79,7 @@ public class BoardController {
       * @return テンプレート
       */
      @RequestMapping(value = "/update", method = RequestMethod.POST)
-     public String update(@ModelAttribute("form") @Validated Post form, BindingResult result, Model model) {
+     public String update(@ModelAttribute("form") @Validated(GroupOrder.class) Post form, BindingResult result, Model model) {
     	 if (!result.hasErrors()) {
     		 Optional<Post> post = repository.findById(form.getId());
     		 repository.saveAndFlush(PostFactory.updatePost(post.get(), form));
